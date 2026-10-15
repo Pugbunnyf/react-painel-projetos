@@ -1,122 +1,110 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import Cabecalho from "./components/cabecalho";
+import Secao from "./components/secao";
+import Resumo from "./components/resumo";
+import ProjetoCard from "./components/projetoCard";
+import Rodape from "./components/rodape";
+import "./App.css";
+
+const projetos = [
+  {
+    id: 1,
+    titulo: "Sistema de Estoque",
+    descricao: "Controle de produtos e movimentações.",
+    responsavel: { nome: "Caetano", turma: "grupo  A" },
+    status: "Concluído",
+    tecnologias: ["React", "Node.js", "PostgreSQL"],
+    destaque: true,
+    nota: 9,
+  },
+  {
+    id: 2,
+    titulo: "Agenda Escolar",
+    descricao: "Calendário de provas, trabalhos e eventos da turma.",
+    responsavel: { nome: "Pedro", turma: "Grupo A" },
+    status: "Em desenvolvimento",
+    tecnologias: ["React", "Firebase"],
+    destaque: false,
+  },
+  {
+    id: 3,
+    titulo: "Loja Virtual",
+    descricao: "Catálogo de produtos com carrinho de compras.",
+    responsavel: { nome: "Gustavo", turma: "Grupo B" },
+    status: "Concluído",
+    tecnologias: ["HTML", "CSS", "JavaScript"],
+    destaque: false,
+    nota: 7.5,
+  },
+  {
+    id: 4,
+    titulo: "App de Receitas",
+    descricao: "Busca de receitas por ingredientes.",
+    responsavel: { nome: "Eduardo", turma: "Grupo B" },
+    status: "Planejamento",
+    tecnologias: ["React Native", "API REST"],
+    destaque: false,
+  },
+  {
+    id: 5,
+    titulo: "Controle de Biblioteca",
+    descricao: "Cadastro de livros, alunos e empréstimos.",
+    responsavel: { nome: "ASSper", turma: "Grupo A" },
+    status: "Em desenvolvimento",
+    tecnologias: ["Java", "MySQL"],
+    destaque: true,
+  },
+  {
+    id: 6,
+    titulo: "Portal de Notícias",
+    descricao: "Site de notícias com painel para os editores.",
+    responsavel: { nome: "Rebibas", turma: "Grupo B" },
+    status: "Planejamento",
+    tecnologias: ["React", "Node.js"],
+    destaque: false,
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const total = projetos.length;
+  const concluidos = projetos.filter((p) => p.status === "Concluído").length;
+  const emDesenvolvimento = projetos.filter(
+    (p) => p.status === "Em desenvolvimento"
+  ).length;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <Cabecalho />
 
-      <div className="ticks"></div>
+      <main>
+        <Secao titulo="Resumo do painel">
+          <Resumo
+            total={total}
+            concluidos={concluidos}
+            emDesenvolvimento={emDesenvolvimento}
+          />
+        </Secao>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <Secao titulo="Projetos da turma">
+          <div className="lista-projetos">
+            {projetos.map((projeto) => (
+              <ProjetoCard
+                key={projeto.id}
+                titulo={projeto.titulo}
+                descricao={projeto.descricao}
+                responsavel={projeto.responsavel}
+                status={projeto.status}
+                tecnologias={projeto.tecnologias}
+                destaque={projeto.destaque}
+                nota={projeto.nota}
+              />
+            ))}
+          </div>
+        </Secao>
+      </main>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <Rodape />
+    </div>
+  );
 }
 
-export default App
+export default App;
